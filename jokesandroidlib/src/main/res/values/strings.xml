@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">JokesAndroidLib</string>
+    <string name="joke">Joke</string>
+    <string name="joke_failure">Unable to retrieve joke.</string>
+</resources>

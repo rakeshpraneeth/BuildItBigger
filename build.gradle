@@ -20,3 +20,9 @@ allprojects {
         google()
     }
 }
+
+ext{
+    minSdkVerionValue = 19
+    compileSdkVersionValue = 27
+    appcompatVersion = "27.1.1"
+}
