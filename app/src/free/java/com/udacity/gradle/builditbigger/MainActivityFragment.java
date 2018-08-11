@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.krp.jokesandroidlib.JokeDisplayActivity;
 
 
@@ -25,6 +28,8 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     private ProgressBar progressBar;
 
     RetrieveJokeAsyncTask jokeAsyncTask;
+
+    private InterstitialAd interstitialAd;
 
     public MainActivityFragment() {
     }
@@ -42,6 +47,12 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
+
+        MobileAds.initialize(getContext());
+        interstitialAd = new InterstitialAd(getContext());
+        interstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
+
+
         return root;
     }
 
@@ -73,8 +84,35 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     }
 
     @Override
-    public void onJokeReceived(String joke) {
+    public void onJokeReceived(final String joke) {
+
         progressBar.setVisibility(View.GONE);
+
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd.setAdListener(new AdListener(){
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                interstitialAd.show();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                navigateToDisplay(joke);
+            }
+
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+               navigateToDisplay(joke);
+            }
+        });
+
+    }
+
+    private void navigateToDisplay(String joke){
         Intent intent = new Intent(getContext(), JokeDisplayActivity.class);
         intent.putExtra(JokeDisplayActivity.EXTRA_JOKE_KEY, joke);
         startActivity(intent);
