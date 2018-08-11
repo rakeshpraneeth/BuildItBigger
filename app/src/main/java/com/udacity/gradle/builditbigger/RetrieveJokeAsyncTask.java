@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -52,7 +53,7 @@ public class RetrieveJokeAsyncTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        if (listener != null && !result.isEmpty()) {
+        if (listener != null && !TextUtils.isEmpty(result)) {
             listener.onJokeReceived(result);
         }
     }

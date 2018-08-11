@@ -3,6 +3,7 @@ package com.krp.jokesandroidlib;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.TextUtils;
 import android.view.MenuItem;
 
 public class JokeDisplayActivity extends AppCompatActivity {
@@ -20,7 +21,7 @@ public class JokeDisplayActivity extends AppCompatActivity {
 
         if (getIntent() != null) {
             String joke = getIntent().getStringExtra(EXTRA_JOKE_KEY);
-            if (joke != null) {
+            if (!TextUtils.isEmpty(joke)) {
                 jokeTv.setText(joke);
             } else {
                 jokeTv.setText(getString(R.string.joke_failure));

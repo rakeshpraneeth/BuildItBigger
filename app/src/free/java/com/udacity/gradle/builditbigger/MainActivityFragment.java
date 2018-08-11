@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -69,9 +70,13 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.tellJokeBtn) {
-            progressBar.setVisibility(View.VISIBLE);
-            jokeAsyncTask = new RetrieveJokeAsyncTask(this);
-            jokeAsyncTask.execute();
+            if(NetworkHandler.isNetworkAvailable(getContext())) {
+                progressBar.setVisibility(View.VISIBLE);
+                jokeAsyncTask = new RetrieveJokeAsyncTask(this);
+                jokeAsyncTask.execute();
+            }else{
+                Toast.makeText(getContext(), getString(R.string.no_internet),Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
