@@ -24,6 +24,14 @@
         android:layout_centerHorizontal="true"
         android:text="@string/button_text" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tellJokeBtn"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"
