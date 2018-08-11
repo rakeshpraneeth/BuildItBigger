@@ -1,29 +1,18 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import com.krp.jokesandroidlib.JokeDisplayActivity;
-import com.krp.jokesprovider.JokesGenerator;
 
 
-public class MainActivity extends AppCompatActivity implements OnJokeResponseListener {
-
-    // JokesGenerator class from JokesProvider java library.
-    JokesGenerator jokesGenerator = new JokesGenerator();
-
-    RetrieveJokeAsyncTask jokeAsyncTask;
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,27 +34,6 @@ public class MainActivity extends AppCompatActivity implements OnJokeResponseLis
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void tellJoke(View view) {
-
-        jokeAsyncTask = new RetrieveJokeAsyncTask(this);
-        jokeAsyncTask.execute();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (jokeAsyncTask != null) {
-            jokeAsyncTask.cancel(true);
-        }
-    }
-
-    @Override
-    public void onJokeReceived(String joke) {
-        Intent intent = new Intent(this, JokeDisplayActivity.class);
-        intent.putExtra(JokeDisplayActivity.EXTRA_JOKE_KEY, joke);
-        startActivity(intent);
     }
 
 }

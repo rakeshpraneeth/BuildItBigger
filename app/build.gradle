@@ -15,7 +15,7 @@ android {
     buildToolsVersion "27.0.3"
 
     defaultConfig {
-        applicationId "com.udacity.gradle.builditbigger"
+
         minSdkVersion rootProject.ext.minSdkVerionValue
         targetSdkVersion rootProject.ext.compileSdkVersionValue
         versionCode 1
@@ -29,6 +29,21 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions 'userType'
+    productFlavors{
+        free{
+            dimension 'userType'
+            applicationId "com.udacity.gradle.builditbigger.free"
+            resValue 'string', 'builditbigger_app_name', "BuildItBigger_free"
+        }
+
+        paid{
+            dimension 'userType'
+            applicationId "com.udacity.gradle.builditbigger.paid"
+            resValue 'string', 'builditbigger_app_name', "BuildItBigger_free"
         }
     }
 }
