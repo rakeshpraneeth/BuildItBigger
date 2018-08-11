@@ -11,10 +11,12 @@ import com.krp.jokesandroidlib.JokeDisplayActivity;
 import com.krp.jokesprovider.JokesGenerator;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnJokeResponseListener {
 
     // JokesGenerator class from JokesProvider java library.
     JokesGenerator jokesGenerator = new JokesGenerator();
+
+    RetrieveJokeAsyncTask jokeAsyncTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void tellJoke(View view) {
 
+        jokeAsyncTask = new RetrieveJokeAsyncTask(this);
+        jokeAsyncTask.execute();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (jokeAsyncTask != null) {
+            jokeAsyncTask.cancel(true);
+        }
+    }
+
+    @Override
+    public void onJokeReceived(String joke) {
         Intent intent = new Intent(this, JokeDisplayActivity.class);
-        intent.putExtra(JokeDisplayActivity.EXTRA_JOKE_KEY,jokesGenerator.getJoke());
+        intent.putExtra(JokeDisplayActivity.EXTRA_JOKE_KEY, joke);
         startActivity(intent);
     }
 

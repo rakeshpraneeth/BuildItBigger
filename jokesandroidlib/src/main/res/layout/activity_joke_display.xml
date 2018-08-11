@@ -9,8 +9,10 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/jokeTv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/joke_text_margin"
+        android:gravity="center"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
