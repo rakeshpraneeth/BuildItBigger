@@ -1,0 +1,31 @@
+
+task startServer(){
+    group 'my custom tasks'
+    dependsOn ':backend:appengineStart'
+    doLast{
+        println "BuildItBigger app module  startServer"
+    }
+}
+
+task runTests(){
+    group 'my custom tasks'
+    dependsOn ':app:connectedAndroidTest'
+    doLast{
+        println "BuildItBigger app module  runTests"
+    }
+}
+
+task shutServerDown(){
+    group 'my custom tasks'
+    dependsOn ':backend:appengineStop'
+    doLast{
+        println "BuildItBigger app module shutServerDown"
+    }
+
+}
+
+task MyTestTask(){
+    group 'my custom tasks'
+    dependsOn =["startServer","runTests","shutServerDown"]
+}
+runTests.mustRunAfter(startServer)

@@ -20,6 +20,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(AndroidJUnit4.class)
 public class RetrieveJokeAsyncTaskTest {
 
+    // start the server and run this test.
     @Test
     public void shouldCallOnJokeReceived() throws InterruptedException{
         final CountDownLatch countDownLatch = new CountDownLatch(1);

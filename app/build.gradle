@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.cloud.tools.endpoints-framework-client'
+apply from: 'customtask_build.gradle'
 
 buildscript {
     repositories {
